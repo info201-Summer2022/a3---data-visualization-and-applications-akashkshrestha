@@ -1,0 +1,49 @@
+---
+title: "Assignment 3: Incarceration Analysis"
+author: Akash Shrestha
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+source("analysis.R")
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### **Introduction**
+
+This assignment looked at the incarceration trends dataset that spans across the United States. Many of the variables within the dataset provide insight on statistics of the population that is jailed or imprisoned across a wide range of identities. These identities range from race to age and includes other types of jail rates. My focus for this assignment was to look at and analyze different trends in the AAPI population. I myself identify as AAPI, but I did not know that much as to the numbers and rates of AAPI in jails and prisons. **The main goal of this was to look at the relationship between the total jail population across the United States and the AAPI community.** This would allow me to see observations and patterns between the two and can also lead to inferences about other racial groups within the United States prison system.
+
+### **Discussing 5 Chosen Values**
+
+The 5 target values I chose to focus on were:
+
+_Which state had the highest total jailed population across the entire United States from any year in the dataset?_
+
+Per my calculations, the state with the highest total jailed population across the entire United States from any year was California.
+
+_Highest male jail population across the United States in 2018_
+
+Per my calculations, the state with the highest total male jail population in 2018 was **California**.
+
+
+
+### **Trend over Time Chart:** _Line Chart_
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+aapi_linechart
+```
+
+
+
+### **Variable Comparison Chart:** _Scatterplot_
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+aapi_scatterplot
+```
+
+
+
+### **Map:** _State Map_
+```{r, echo = FALSE, warning=FALSE, message=FALSE}
+map
+```
+
