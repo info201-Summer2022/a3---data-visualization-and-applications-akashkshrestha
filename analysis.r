@@ -38,7 +38,7 @@ high_state_aapi <- incarceration_data %>%
   pull(state, aapi_jail_pop)
 
 # What is the total AAPI jail population in the state of WA?
-# Combine the amount from each year and store in the variable `ca_latinx_`
+# Combine the amount from each year and store in the variable `wa_aapi`
 
 wa_aapi_jail <- incarceration_data %>%
   group_by(year) %>%
