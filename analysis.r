@@ -58,68 +58,28 @@ select(year, state, aapi_jail_pop) %>%
   mutate(change_decimal = round(change, 2)) %>% 
   pull(change_decimal)
 
-# Trends Over Time Chart (Line Chart)
+# Trends Over Time Chart (Histogram/Line Chart)
 
 library(ggplot2)
 
-aapi_linechart <- ggplot(incarceration_data, aes(x=year, y=aapi_jail_pop)) +
+aapi_histogram <- ggplot(incarceration_data, aes(x=year, y=aapi_jail_pop)) +
   geom_line(aes(color = "AAPI")) +
   labs(x = "Year", y = "AAPI Jail Pop") +
   ggtitle("AAPI Jailed Population across the United States")
 
-# Comparison Chart (Scatterplot)
+# Comparison Chart (Line Chart)
 
-states <- incarceration_data %>%
-  group_by(year) %>%
-  filter(state == "WA") %>%
-  filter(aapi_jail_pop == aapi_jail_pop) %>%
-  summarize(jail = sum(aapi_jail_pop))
-
-aapi_scatterplot <- ggplot(states, aes(x = year, y = jail)) +
-  geom_point(aes(color = jail)) +
-  scale_color_continuous("AAPI Jail Population") +
-  labs(x = "Year", y = "AAPI Jail Population in Washington") +
-  ggtitle("AAPI Jail Population in Washington")
-
-# US Map
-
-library(usmap)
+# Recieved help from this YouTube video 
+# [Make Beautiful Graphs in R: 5 Quick Ways to Improve ggplot2 Graphs](https://www.youtube.com/watch?v=qnw1xDnt_Ec)
+# Libraries
 library(ggplot2)
+install.packages("ggthemes")
+library(ggthemes)
 
-blank_theme <- theme_bw() +
-  theme(
-    axis.line = element_blank(),
-    axis.text = element_blank(),
-    axis.ticks = element_blank(),
-    axis.title = element_blank(),
-    plot.background = element_blank(),
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    panel.border = element_blank()
-  )
-
-aapi_state <- incarceration_data %>%
-  group_by(state) %>%
-  filter(year == max(year, na.rm = T)) %>%
-  filter(aapi_jail_pop == aapi_jail_pop) %>%
-  filter(total_pop == total_pop) %>%
-  mutate(total_pop / aapi_jail_pop) %>%
-  summarize(
-    pop = sum(aapi_jail_pop), total = max(total_pop),
-    mutate = sum(total_pop / aapi_jail_pop)
-  )
-
-map <- plot_usmap(
-  data = aapi_state, values = "pop", color = "black",
-  name = "AAPI Jail Population"
-) +
-  coord_fixed(1) +
-  blank_theme +
-  scale_fill_gradientn(
-    colours = c("white", "blue"),
-    breaks = c(0, 10, 100, 1000),
-    trans = "log10", name = "AAPI Jail Population"
-  ) +
-  labs(title = "The United States", subtitle = "AAPI Jail Population in
-       2018", name = "AAPI Jail Population") +
-  theme(legend.position = "left")
+aapi_linechart <- ggplot(incarceration_data, aes(x=aapi_jail_pop, y=year)) +
+  geom_line() +
+  labs(title = "AAPI Jailed Population across the United States",
+       subtitle = "How do AAPI jail rates fluxuate over time?",
+       x = "AAPI Jail Pop",
+       y = "Year",
+       color = "Region")
