@@ -6,44 +6,55 @@ output: html_document
 
 ```{r setup, include=FALSE}
 library(tidyverse)
-source("analysis.R")
+source("analysis.r")
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### **Introduction**
 
-This assignment looked at the incarceration trends dataset that spans across the United States. Many of the variables within the dataset provide insight on statistics of the population that is jailed or imprisoned across a wide range of identities. These identities range from race to age and includes other types of jail rates. My focus for this assignment was to look at and analyze different trends in the AAPI population. I myself identify as AAPI, but I did not know that much as to the numbers and rates of AAPI in jails and prisons. **The main goal of this was to look at the relationship between the total jail population across the United States and the AAPI community.** This would allow me to see observations and patterns between the two and can also lead to inferences about other racial groups within the United States prison system.
+This assignment looked at the 'incarceration trends dataset' that spans across the United States. Many of the variables within the dataset provide insight on statistics of the population that is jailed or imprisoned across a wide range of identities. These identities range from race to age and includes other types of jail rates. My focus for this assignment was to look at and analyze different trends in the AAPI population. I myself identify as AAPI, but I did not know that much as to the numbers and rates of AAPI in jails and prisons. **The main goal of this was to look at the relationship between the total jail population across the United States and the AAPI community.** This would allow me to see observations and patterns between the two and can also lead to inferences about other racial groups within the United States prison system. Some extra parameters that I wanted to include (just for the chosen values) was including a metropolitan area variable in the caluclation of some of my values. I did this because crime and incarcerations occur more often in metropolitan areas than rural areas. I left out the 'metro_data' variable in my graphs and map because for those to work, I couldn't use the metropolitan area data (it would be too small or wouldn't function correctly). Additionally, I believe that the graphs and map should be viewed as the larger, more broad area that is the total amount of AAPI jail incarceration.
 
 ### **Discussing 5 Chosen Values**
 
 The 5 target values I chose to focus on were:
 
-_Which state had the highest total jailed population across the entire United States from any year in the dataset?_
+_- Which state had the highest total metropolitan jailed population across the entire United States from any year in the dataset?_
 
-Per my calculations, the state with the highest total jailed population across the entire United States from any year was California.
+The state with the highest total metropolitan jailed population across the entire United States from any year was **California**. This seemed to be the case for many years prior of 2018 as well. 
 
-_Highest male jail population across the United States in 2018_
+_- What year had the highest total metropolitan male jail population from 1976 to 2018?_
 
-Per my calculations, the state with the highest total male jail population in 2018 was **California**.
+The year with the highest total metropolitan male jail population was in **1996** and was once again in the state of California.
 
+_- Which state had the highest total metropolitan male jail population across the United States within the most recent year (being 2018)?_
 
+The state with the highest total male jail population in 2018 was once again, **California**.
+
+_- What is the total metropolitan AAPI jail population in Washington state for all past years across the country?_
+
+The total metropolitan AAPI jail population in Washington state from all years prior to 2018 and before 1976 put together was **106341.67**.
+
+_- What is the total change in percent of metropolitan AAPI incarcerations from the past 30 years (1988-2018)?_
+
+The percentage change of metropolitan AAPI jail incarceration was* **%3.5044**. From 1988 to 2018, the rate of metropolitan AAPI incarcerations went up %3.5 across the entire United States.
 
 ### **Trend over Time Chart:** _Line Chart_
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
 aapi_linechart
 ```
 
+This graph represents the AAPI jailed population rate across the United States from 1970 to 2020. The reason why I chose this graph was because I wanted to see the relationship between AAPI jailed population and what years they were mostly incarcerated. I illustrated this through a line chart that shows many fluctuation of AAPI being incarcerated in specific years. Some patterns that came up were that obviously from values 0 and 250, the years changed drastically as the incarcerated rate of AAPI raised. This chart allowed me to see that the years that had the most AAPI incarcerations were approximately from 1995 to 1999, as the graph draws out. These data points can be used to make other inferences about this dataset or others related to incarceration rates per year.
 
-
-### **Variable Comparison Chart:** _Scatterplot_
+### **Variable Comparison Chart:** _Barplot Histogram - AAPI Jail Rates per Region_
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
-aapi_scatterplot
+aapi_comp_chart
 ```
 
+The second chart I chose represents different regions of the United States and how many incarcerated AAPI are in each one. The reason why I chose this graph was because I wanted to see the relationship between which regions had the most and least incarcerated AAPI populations. I chose to represent the data through an interesting combination of a line chart and a histogram. The graph illustrates different lines at different intervals that correspond to the y-axis (which is aapi_jail_pop). As the data points out, the west and northeast have the highest AAPI incarceration rates. A pattern that the data also points out is that the order of most AAPI incarcerated to least is the west, northeast, south, and midwest. These data points can be used to make inferences about this dataset or others related to incarceration rates by region.
 
-
-### **Map:** _State Map_
+### **Map:** _US map of AAPI incarcerations_
 ```{r, echo = FALSE, warning=FALSE, message=FALSE}
-map
+aapi_map
 ```
 
+The third and final chart I chose represents the US states and the AAPI incarcerated population toroughout the map. The reason why I decided to create a map (besides it being in the rubric) was because I wanted to see the relationship between US states and AAPI incarceration. I chose to represent this data through a map because it helps me understand and observe which states had the highest and lowest AAPI incarceration rates. A pattern I noticed through this map was that many of the southern states are darker (meaning less AAPI incarcerated population) while the east coast and west coast have the most AAPI incarcerated population. Additionally, states like South Dakota, Vermont, Rhode Island, Connecticut, Delaware, and Hawaii have almost no AAPI incarcerations. This data can be used to make inferences about this dataset or others related to AAPI incarceration rates across the US or the world even.
