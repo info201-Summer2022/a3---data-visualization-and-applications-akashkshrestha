@@ -41,14 +41,15 @@ aapi_highest_state <- incarceration_data %>%
   pull(state, aapi_jail_pop)
 
 # What was the total metropolitan AAPI jail population in Washington State for all past years across the country?
-# Stored the value in the variable 'wa_aapi'
+# Stored the value in the variable 'wa_aapi_total_jail'
 
 wa_aapi_jail <- incarceration_data %>%
   group_by(year) %>%
   filter(state == "WA") %>%
   filter(aapi_jail_pop == aapi_jail_pop) %>%
+  summarize(sum(aapi_jail_pop))
 
-wa_aapi <- sum(wa_aapi_jail)
+wa_appi_total_jail <- sum(wa_aapi_jail)
 
 # Find the total change in percent of metropolitan aapi jail incarceration from the past 30 years (1988-2018)?
 # Stored the number in the variable 'aapi_percent_change'
@@ -59,7 +60,7 @@ aapi_percent_change <- incarceration_data %>%
   summarise(aapi_jail_pop = sum(aapi_jail_pop, na.rm = TRUE)) %>%
   summarise(percent_changed = abs((aapi_jail_pop[year == 2018] - aapi_jail_pop[year == 1988])/aapi_jail_pop[year == 1988]))%>%
   mutate(answer = round(percent_changed, 4)) %>% 
-  pull(answer)
+  pull(answer) # run this specific line to see answer
 
 
 # Trends Over Time Chart (Histogram/Line Chart)
