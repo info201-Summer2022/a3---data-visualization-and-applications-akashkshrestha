@@ -17,7 +17,7 @@ library("ggplot2")
 # Which state had the highest total metropolitan jail population in the dataset?
 # Stored the state in the variable 'highest_jail_state'
 
-jail_highest_state <- incarceration_data %>%
+highest_jail_state <- incarceration_data %>%
   filter(total_jail_pop == max(total_jail_pop, na.rm = T)) %>%
   filter(metro_area == metro_area) %>%
   filter(year == max(year, na.rm = T)) %>%
@@ -58,7 +58,8 @@ aapi_percent_change <- incarceration_data %>%
   group_by(year) %>%
   filter(metro_area == metro_area) %>%
   summarise(aapi_jail_pop = sum(aapi_jail_pop, na.rm = TRUE)) %>%
-  summarise(percent_changed = abs((aapi_jail_pop[year == 2018] - aapi_jail_pop[year == 1988])/aapi_jail_pop[year == 1988]))%>%
+  summarise(percent_changed = abs((aapi_jail_pop[year == 2018] - aapi_jail_pop[year == 1988]) / aapi_jail_pop[year == 1988]))%>%
+  # rounds to four-thosandths place
   mutate(answer = round(percent_changed, 4)) %>% 
   pull(answer) # run this specific line to see answer
 
