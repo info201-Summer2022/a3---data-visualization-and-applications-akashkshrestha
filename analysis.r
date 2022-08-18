@@ -7,14 +7,15 @@
 
 # Load dataset in
 incarceration_data <- read.csv("incarceration_trends.csv")
+# Load libraries
 library("stringr")
 library("dplyr")
 library("ggplot2")
 
-# Summary Values
+# 5 chosen summary values
 
 # Which state had the highest total metropolitan jail population in the dataset?
-# Store the state in the variable 'highest_jail_state'
+# Stored the state in the variable 'highest_jail_state'
 
 jail_highest_state <- incarceration_data %>%
   filter(total_jail_pop == max(total_jail_pop, na.rm = T)) %>%
@@ -23,7 +24,7 @@ jail_highest_state <- incarceration_data %>%
   pull(state)
 
 # What year had the highest total metropolitan male jail population from 1976 to 2018?
-# Store the year in the variable 'jail_highest_year'
+# Stored the year in the variable 'jail_highest_year'
 
 jail_highest_year <- incarceration_data %>%
   filter(male_adult_jail_pop == max(male_adult_jail_pop, na.rm = T)) %>%
@@ -31,7 +32,7 @@ jail_highest_year <- incarceration_data %>%
   pull(year)
 
 # What state had the highest total metropolitan AAPI jail population in 2018?
-# Store the state in the variable 'aapi_highest_state
+# Stored the state in the variable 'aapi_highest_state
 
 aapi_highest_state <- incarceration_data %>%
   filter(aapi_jail_pop == max(aapi_jail_pop, na.rm = T)) %>%
@@ -40,7 +41,7 @@ aapi_highest_state <- incarceration_data %>%
   pull(state, aapi_jail_pop)
 
 # What was the total metropolitan AAPI jail population in Washington State for all past years across the country?
-# Store the value in the variable 'wa_aapi'
+# Stored the value in the variable 'wa_aapi'
 
 wa_aapi_jail <- incarceration_data %>%
   group_by(year) %>%
@@ -50,7 +51,7 @@ wa_aapi_jail <- incarceration_data %>%
 wa_aapi <- sum(wa_aapi_jail)
 
 # Find the total change in percent of metropolitan aapi jail incarceration from the past 30 years (1988-2018)?
-# Store the number in the variable 'aapi_percent_change'
+# Stored the number in the variable 'aapi_percent_change'
 aapi_percent_change <- incarceration_data %>%
   select(metro_area, aapi_jail_pop, state, year) %>%
   group_by(year) %>%
@@ -63,8 +64,10 @@ aapi_percent_change <- incarceration_data %>%
 
 # Trends Over Time Chart (Histogram/Line Chart)
 
+# Load ggplot
 library(ggplot2)
 
+# Creates AAPI line chart
 aapi_linechart <- ggplot(incarceration_data, aes(x=aapi_jail_pop, y=year)) +
   geom_line() +
   labs(title = "AAPI Jailed Population across the United States",
@@ -79,8 +82,10 @@ aapi_linechart <- ggplot(incarceration_data, aes(x=aapi_jail_pop, y=year)) +
 # Recieved help from this YouTube video 
 # [Make Beautiful Graphs in R: 5 Quick Ways to Improve ggplot2 Graphs](https://www.youtube.com/watch?v=qnw1xDnt_Ec)
 
+# Set colors
 myColors = c("#A6611A", "#DFC27D", "#6e6c6b", "#80CDC1", "#018571")
 
+# Creates comparison chart
 aapi_comp_chart <- incarceration_data %>%
   ggplot(aes(x = state, y = aapi_jail_pop, color = region)) +
   geom_line()
@@ -89,6 +94,7 @@ labs(
 
 # US Map
 
+# Load libraries
 library(usmap)
 library(dplyr)
 library(ggplot2)
@@ -107,12 +113,14 @@ blank_theme <- theme_bw() +
     panel.border = element_blank()      # remove border around plot
   )
 
-prison_pop_2018 <- filter(incarceration_data, year == "2018")
-loc_aapi_pop_2018 <- select(prison_pop_2018, state, aapi_jail_pop)
+# Filter dataset to AAPI rates per state in 2018
+incar_pop_2018 <- filter(incarceration_data, year == "2018")
+aapi_pop_state_2018 <- select(incar_pop_2018, state, aapi_jail_pop)
 
+# Creates US map
 aapi_map <- plot_usmap(
   regions = c("states"),
-  data = (loc_aapi_pop_2018),
+  data = (_aapi_pop_state_2018),
   values = "aapi_jail_pop",
   labels = FALSE,
   label_color = "black",
