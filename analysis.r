@@ -120,7 +120,7 @@ aapi_pop_state_2018 <- select(incar_pop_2018, state, aapi_jail_pop)
 # Creates US map
 aapi_map <- plot_usmap(
   regions = c("states"),
-  data = (_aapi_pop_state_2018),
+  data = (aapi_pop_state_2018),
   values = "aapi_jail_pop",
   labels = FALSE,
   label_color = "black",
