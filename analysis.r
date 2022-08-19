@@ -14,17 +14,17 @@ library("ggplot2")
 
 # 5 chosen summary values
 
-# Which state had the highest total metropolitan jail population in the dataset?
-# Stored the state in the variable 'highest_jail_state'
+# Which state had the highest total metropolitan jail population in the dataset in 2018?
+# Stored the state in a variable called 'highest_jail_state'
 
 highest_jail_state <- incarceration_data %>%
   filter(total_jail_pop == max(total_jail_pop, na.rm = T)) %>%
-  filter(metro_area == metro_area) %>%
   filter(year == max(year, na.rm = T)) %>%
+  filter(metro_area == metro_area) %>%
   pull(state)
 
 # What year had the highest total metropolitan male jail population from 1976 to 2018?
-# Stored the year in the variable 'jail_highest_year'
+# Stored the year in a variable called 'jail_highest_year'
 
 jail_highest_year <- incarceration_data %>%
   filter(male_adult_jail_pop == max(male_adult_jail_pop, na.rm = T)) %>%
@@ -32,16 +32,16 @@ jail_highest_year <- incarceration_data %>%
   pull(year)
 
 # What state had the highest total metropolitan AAPI jail population in 2018?
-# Stored the state in the variable 'aapi_highest_state
+# Stored the state in a variable called 'aapi_highest_state
 
 aapi_highest_state <- incarceration_data %>%
   filter(aapi_jail_pop == max(aapi_jail_pop, na.rm = T)) %>%
   filter(year == max(year, na.rm = T)) %>%
   filter(metro_area == metro_area) %>%
-  pull(state, aapi_jail_pop)
+  pull(state)
 
 # What was the total metropolitan AAPI jail population in Washington State for all past years across the country?
-# Stored the value in the variable 'wa_aapi_total_jail'
+# Stored the value in a variable called 'wa_aapi_total_jail'
 
 wa_aapi_jail <- incarceration_data %>%
   group_by(year) %>%
@@ -52,16 +52,20 @@ wa_aapi_jail <- incarceration_data %>%
 wa_appi_total_jail <- sum(wa_aapi_jail)
 
 # Find the total change in percent of metropolitan aapi jail incarceration from the past 30 years (1988-2018)?
-# Stored the number in the variable 'aapi_percent_change'
+# Stored the number in a variable called 'aapi_percent_change'
 aapi_percent_change <- incarceration_data %>%
+  
+  # Select and filter
   select(metro_area, aapi_jail_pop, state, year) %>%
   group_by(year) %>%
   filter(metro_area == metro_area) %>%
+  
+  # Get the percent changed and store it in a variable 'percent_changed'
   summarise(aapi_jail_pop = sum(aapi_jail_pop, na.rm = TRUE)) %>%
   summarise(percent_changed = abs((aapi_jail_pop[year == 2018] - aapi_jail_pop[year == 1988]) / aapi_jail_pop[year == 1988]))%>%
-  # rounds to four-thosandths place
+  # rounds to four-thousandths place
   mutate(answer = round(percent_changed, 4)) %>% 
-  pull(answer) # run this specific line to see answer
+  pull(answer) # run this specific line to see answer. If does not work, run from line 56 to 68.
 
 
 # Trends Over Time Chart (Histogram/Line Chart)
